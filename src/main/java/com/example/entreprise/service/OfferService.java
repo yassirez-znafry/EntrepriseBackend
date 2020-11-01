@@ -41,6 +41,14 @@ public class OfferService {
         return mapFromOfferToDto(offer);
     }
 
+    @Transactional
+    public List<OfferDto> readByUsername(String username){
+        return  offerRepository.findByUsername(username).stream()
+                .map(this::mapFromOfferToDto)
+                .collect(toList());
+
+    }
+
 
     private Offer mapFromDtoToOffer(OfferDto offerDto) {
         Offer offer = new Offer();

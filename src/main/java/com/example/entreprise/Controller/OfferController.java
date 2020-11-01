@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.http.ResponseEntity.status;
+
 @RestController
 @RequestMapping("/api/offers/")
 public class OfferController {
@@ -31,5 +33,10 @@ public class OfferController {
     @GetMapping("/get/{id}")
     public ResponseEntity<OfferDto> getSingleOffer(@PathVariable @RequestBody Long id) {
         return new ResponseEntity<>(offerService.readSingleOffer(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/get/by-user/{username}")
+    public ResponseEntity<List<OfferDto>> getOfferByUsername(@PathVariable @RequestBody String username){
+        return status(HttpStatus.OK).body(offerService.readByUsername(username));
     }
 }
